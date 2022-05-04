@@ -1,5 +1,5 @@
 # Get science news right in your telegram.
-Python parser used for parsing science journal's web sites (Nature and Science at the moment) with telegram notification.
+Python scrapper used for scrapping science journal's web sites with telegram notification. 
 
 Technologies:
 - Python 3.7
