@@ -1,5 +1,5 @@
 # Get science news right in your telegram.
-Python scraper used for scraping science journal's web sites (Nature and Science at the moment) with telegram notification. 
+The python scraper used for scraping science journal's web site (Nature at the moment) and send article links to a client in the telegram. 
 
 Technologies:
 - Python 3.7
