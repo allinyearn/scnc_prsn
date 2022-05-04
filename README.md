@@ -1,5 +1,5 @@
 # Web-site parser.
-Python parser used for parsing science journal's web sites with telegram notification.
+Python parser used for parsing science journal's web sites (Nature and Science at the moment) with telegram notification.
 
 Technologies:
 - Python 3.7
