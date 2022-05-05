@@ -44,7 +44,11 @@ def main(tg_data):
             msg = 'We have some problems.'
             send_notification(msg, tg_data)
         while raw_data == get_raw_data():
-            sleep(10 * 60)
+            send_notification(
+                'No news right now, wait for 30 minutes to check',
+                tg_data
+            )
+            sleep(30 * 60)
 
 
 if __name__ == '__main__':
