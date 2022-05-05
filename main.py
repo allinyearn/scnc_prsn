@@ -34,24 +34,6 @@ def send_notification(processed_data, tg_context):
     return bot.send_message(tg_context['client_id'], processed_data)
 
 
-'''
-bot can answer user messages, but not now :)
-def response(bot_token):
-    updater = Updater(token=bot_token)
-
-    def say_hi(update, context):
-        chat = update.effective_chat
-        context.bot.send_message(
-            chat_id=chat.id,
-            text='Keep calm and read Nature.'
-        )
-
-    updater.dispatcher.add_handler(MessageHandler(Filters.text, say_hi))
-    updater.start_polling()
-    updater.idle()
-'''
-
-
 def main(tg_data):
     while True:
         try:
@@ -61,19 +43,18 @@ def main(tg_data):
         except Exception:
             msg = 'We have some problems.'
             send_notification(msg, tg_data)
-        sleep(10 * 60)
-#    response()
+        while raw_data == get_raw_data():
+            sleep(10 * 60)
 
 
 if __name__ == '__main__':
     import os
+    from time import sleep
 
     import requests
     from bs4 import BeautifulSoup
     from dotenv import load_dotenv
     from telegram import Bot
-    from time import sleep
-#    from telegram.ext import CommandHandler, Filters, MessageHandler, Updater
     load_dotenv()
     tg_data = {
         'bot_token': os.getenv('BOT_TOKEN', default='your_precious_token'),

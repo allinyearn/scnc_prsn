@@ -9,3 +9,6 @@ Technologies:
 - Requests 2.27.1
 - Python-Dotenv 0.20.0
 - Python-Telegram-Bot 13.11
+
+Server:
+- Heroku
