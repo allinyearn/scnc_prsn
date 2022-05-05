@@ -1,4 +1,4 @@
-def get_data():
+def get_raw_data():
     req = requests.get('http://feeds.nature.com/nature/rss/current')
     soup = BeautifulSoup(req.text, 'xml')
     useless_subs = ['<dc:', 'nature.com', '>Nature<']
@@ -20,17 +20,43 @@ def get_data():
             processed_titles.append(title[7:-8])
 
     output_data = tuple(zip(processed_titles, links))
-    return output_data
+    return output_data[:5]
 
 
-def send_notification(data, bot_token, client_id):
-    bot = Bot(token=bot_token)
-    return bot.send_message(client_id, data[:10])
+def process_data(raw_data):
+    title = raw_data[0][0]
+    link = raw_data[0][1]
+    return f'{title}\n{link}'
 
 
-def start_working(data):
-    get_data()
-    send_notification(*data)
+def send_notification(processed_data, tg_context):
+    bot = Bot(token=tg_context['bot_token'])
+    return bot.send_message(tg_context['client_id'], processed_data)
+
+
+'''
+bot can answer user messages, but not now :)
+def response(bot_token):
+    updater = Updater(token=bot_token)
+
+    def say_hi(update, context):
+        chat = update.effective_chat
+        context.bot.send_message(
+            chat_id=chat.id,
+            text='Keep calm and read Nature.'
+        )
+
+    updater.dispatcher.add_handler(MessageHandler(Filters.text, say_hi))
+    updater.start_polling()
+    updater.idle()
+'''
+
+
+def main(tg_data):
+    raw_data = get_raw_data()
+    processed_data = process_data(raw_data)
+    send_notification(processed_data, tg_data)
+#    response()
 
 
 if __name__ == '__main__':
@@ -40,10 +66,10 @@ if __name__ == '__main__':
     from bs4 import BeautifulSoup
     from dotenv import load_dotenv
     from telegram import Bot
+#    from telegram.ext import CommandHandler, Filters, MessageHandler, Updater
     load_dotenv()
-    tg_data = (
-        get_data(),
-        os.getenv('BOT_TOKEN', default='your_precious_token'),
-        os.getenv('CLIENT_ID', default='your_precious_id')
-    )
-    start_working(tg_data)
+    tg_data = {
+        'bot_token': os.getenv('BOT_TOKEN', default='your_precious_token'),
+        'client_id': os.getenv('CLIENT_ID', default='your_precious_id')
+    }
+    main(tg_data)
