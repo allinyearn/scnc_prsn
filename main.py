@@ -9,6 +9,7 @@ def get_data():
         if '//feeds' not in str(link) and
         'atom' not in str(link)
     ]
+
     for title in titles:
         flag = False
         for substring in useless_subs:
@@ -26,16 +27,22 @@ def send_notification(data, bot_token, client_id):
     pass
 
 
+def start_working(data):
+    get_data()
+    send_notification(*data)
+
+
 if __name__ == '__main__':
     import os
 
     import requests
     from bs4 import BeautifulSoup
     from dotenv import load_dotenv
+    from telegram import Bot
     load_dotenv()
-    get_data()
-    send_notification(
-        data=get_data(),
-        bot_token=os.getenv('BOT_TOKEN', default=''),
-        client_id=os.getenv('CLIENT_ID', default='')
+    tg_data = (
+        get_data(),
+        os.getenv('BOT_TOKEN', default='your_precious_token'),
+        os.getenv('CLIENT_ID', default='your_precious_id')
     )
+    start_working(tg_data)
