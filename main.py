@@ -53,9 +53,15 @@ def response(bot_token):
 
 
 def main(tg_data):
-    raw_data = get_raw_data()
-    processed_data = process_data(raw_data)
-    send_notification(processed_data, tg_data)
+    while True:
+        try:
+            raw_data = get_raw_data()
+            processed_data = process_data(raw_data)
+            send_notification(processed_data, tg_data)
+        except Exception:
+            msg = 'We have some problems.'
+            send_notification(msg, tg_data)
+        sleep(10 * 60)
 #    response()
 
 
@@ -66,6 +72,7 @@ if __name__ == '__main__':
     from bs4 import BeautifulSoup
     from dotenv import load_dotenv
     from telegram import Bot
+    from time import sleep
 #    from telegram.ext import CommandHandler, Filters, MessageHandler, Updater
     load_dotenv()
     tg_data = {
