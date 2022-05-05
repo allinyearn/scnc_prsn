@@ -4,5 +4,7 @@ The python scraper used for scraping science journal's web site (Nature at the m
 
 Technologies:
 - Python 3.7
-- Beautiful Soup
-- Requests
+- Beautiful Soup 4.11.1
+- Lxml 4.8.0
+- Requests 2.27.1
+- Python-Dotenv 0.20.0
