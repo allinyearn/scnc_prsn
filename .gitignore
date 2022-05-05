@@ -1,6 +1,5 @@
 __pycache__/
-Procfile
-runtime.txt
+
 # Environments
 .env
 .venv
