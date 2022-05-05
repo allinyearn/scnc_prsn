@@ -24,7 +24,8 @@ def get_data():
 
 
 def send_notification(data, bot_token, client_id):
-    pass
+    bot = Bot(token=bot_token)
+    return bot.send_message(client_id, data[:10])
 
 
 def start_working(data):
